@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAppSelector } from '../hooks/hooks';
 import { selectLoading, selectMovieCard } from '../slices/moviesSlice';
 import SearchFormView from '../components/SearchFormView';

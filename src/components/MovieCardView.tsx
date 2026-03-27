@@ -2,21 +2,20 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { selectFavoritesMovies, addToFavorites, deleteFromFavorites } from '../slices/moviesSlice';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '../paths';
-import './MovieCardView.css';
 
 export type TMovieCardView = {
-  Poster: string;
-  Title: string;
-  Year: string;
-  Genre: string;
-  Runtime: string;
-  Director: string;
-  Actors: string;
-  imdbRating: string;
-  imdbID: string;
-  Country: string;
-  Response: string;
-};
+  Poster: string,
+  Title: string,
+  Year: string,
+  Genre: string,
+  Runtime: string,
+  Director: string,
+  Actors: string,
+  imdbRating: string,
+  imdbID: string,
+  Country: string,
+  Response: string
+}
 
 interface Props extends TMovieCardView {}
 
@@ -45,46 +44,46 @@ const MovieCardView = (props: Props) => {
   };
 
   return (
-    <article className='movie-card-view'>
-      <div className="movie-card-view__img">
+    <article className='p-3 flex bg-[#361f36] text-white opacity-60 w-[90%] max-w-[1000px] mx-auto my-[1rem]'>
+      <div className="img">
         <img src={Poster} alt="Poster" />
       </div>
-      <div className="movie-card-view__info">
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Название:</div>
-          <h3 className='movie-card-view__value'>{Title}</h3>
+      <div className="flex flex-col ml-4 flex-1">
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Название:</div>
+          <h3 className='text-xl'>{Title}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Год:</div>
-          <h3 className='movie-card-view__value'>{Year}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Год:</div>
+          <h3 className='text-xl'>{Year}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Страна:</div>
-          <h3 className='movie-card-view__value'>{Country}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Страна:</div>
+          <h3 className='text-xl'>{Country}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Жанр:</div>
-          <h3 className='movie-card-view__value'>{Genre}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Жанр:</div>
+          <h3 className='text-xl'>{Genre}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Продолжительность:</div>
-          <h3 className='movie-card-view__value'>{Runtime}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Продолжительность:</div>
+          <h3 className='text-xl'>{Runtime}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Режисёр:</div>
-          <h3 className='movie-card-view__value'>{Director}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Режисёр:</div>
+          <h3 className='text-xl'>{Director}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">Актёры:</div>
-          <h3 className='movie-card-view__value'>{Actors}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">Актёры:</div>
+          <h3 className='text-xl ml-auto'>{Actors}</h3>
         </div>
-        <div className="movie-card-view__row">
-          <div className="movie-card-view__label">imdb Рейтинг:</div>
-          <h3 className='movie-card-view__value'>{imdbRating}</h3>
+        <div className="flex p-2">
+          <div className="pt-1.5 flex-1">imdb Рейтинг:</div>
+          <h3 className='text-xl'>{imdbRating}</h3>
         </div>
-        <div className="movie-card-view__actions">
+        <div className="flex items-center mt-auto mx-auto">
           <button
-            className='movie-card-view__btn'
+            className='p-2 border-2'
             onClick={onBtnClickHandler}
           >
             {
@@ -94,7 +93,7 @@ const MovieCardView = (props: Props) => {
         </div>
       </div>
     </article>
-  );
-};
+  )
+}
 
 export default MovieCardView;

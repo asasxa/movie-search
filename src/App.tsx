@@ -1,20 +1,23 @@
-import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { Routes, Route } from 'react-router-dom';
 import SearchListPage from './pages/SearchListPage';
-import SearchByIdPage from './pages/SearchByIdPage';
 import FavoritesPage from './pages/FavoritesPage';
-import NotFound from './components/NotFound';
+import MovieCard from './components/MovieCard';
+import SearchByIdPage from './pages/SearchByIdPage';
+import { Paths } from './paths';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<SearchListPage />} />
-        <Route path="search/:id" element={<SearchByIdPage />} />
-        <Route path="favorites" element={<FavoritesPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path={Paths.HOME} element={<Layout />}>
+          <Route index element={<SearchListPage />} />
+          <Route path={Paths.SEARCH} element={<SearchByIdPage />} />
+          <Route path={Paths.FAVORITES} element={<FavoritesPage />} />
+          <Route path={`${Paths.CARD}/:imdbID`} element={<MovieCard />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

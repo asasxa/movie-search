@@ -1,3 +1,4 @@
+import React from 'react';
 import FoundListItemView from '../components/FoundListItemView';
 import { useAppSelector } from '../hooks/hooks';
 import { selectFavoritesMovies, selectLoading } from '../slices/moviesSlice';
