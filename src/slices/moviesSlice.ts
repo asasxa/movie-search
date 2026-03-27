@@ -4,19 +4,19 @@ import { TFoundListItemView } from '../components/FoundListItemView';
 import { TMovieCardView } from '../components/MovieCardView';
 
 export interface IMovieState {
-  foundMovies: TFetchMovies,
-  favoriteMovies: TFoundListItemView[],
-  movieCard: TMovieCardView | null,
-  isLoading: boolean,
-  error: SerializedError | null
+  foundMovies: TFetchMovies;
+  favoriteMovies: TFoundListItemView[];
+  movieCard: TMovieCardView | null;
+  isLoading: boolean;
+  error: SerializedError | null;
 }
 
 export type TFetchMovies = {
-  Response: string,
-  Search: TFoundListItemView[],
-  totalResults: string,
-  Error?: string
-}
+  Response: string;
+  Search: TFoundListItemView[];
+  totalResults: string;
+  Error?: string;
+};
 
 const initialState: IMovieState = {
   foundMovies: {
@@ -31,18 +31,20 @@ const initialState: IMovieState = {
   error: null
 };
 
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY_PRIMARY || '64405bd2';
+const BASE_URL = import.meta.env.VITE_OMDB_API_URL || 'https://www.omdbapi.com';
+
 export const fetchMovies = createAsyncThunk(
   'movies/fetchMovies',
   async (title: string) => {
-    const url = `${process.env.REACT_APP_BASE_URL}?apikey=${process.env.REACT_APP_API_KEY_1}&type=movie&s=${title}`;
+    const url = `${BASE_URL}?apikey=${API_KEY}&type=movie&s=${encodeURIComponent(title)}`;
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(response.statusText)
+      throw new Error(response.statusText);
     }
 
     const data = await response.json();
-
     return data as TFetchMovies;
   }
 );
@@ -50,17 +52,16 @@ export const fetchMovies = createAsyncThunk(
 export const fetchMovieById = createAsyncThunk(
   'movies/fetchMovieById',
   async (imdbID: string) => {
-    const url = `${process.env.REACT_APP_BASE_URL}?apikey=${process.env.REACT_APP_API_KEY_1}&type=movie&i=${imdbID}`;
+    const url = `${BASE_URL}?apikey=${API_KEY}&i=${imdbID}`;
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(response.statusText)
+      throw new Error(response.statusText);
     }
     const data = await response.json();
-
     return data as TMovieCardView;
   }
-)
+);
 
 export const moviesSlice = createSlice({
   name: 'movies',
@@ -105,7 +106,6 @@ export const moviesSlice = createSlice({
         state.isLoading = false;
         state.error = action.error;
       })
-    builder
       .addCase(fetchMovieById.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -119,13 +119,13 @@ export const moviesSlice = createSlice({
       })
       .addCase(fetchMovieById.fulfilled, (state, action: PayloadAction<TMovieCardView>) => {
         state.isLoading = false;
-        state.movieCard = action.payload
+        state.movieCard = action.payload;
       })
       .addCase(fetchMovieById.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
         state.movieCard = null;
-      })
+      });
   },
 });
 
